@@ -1,0 +1,12 @@
+
+# build
+/build
+
+# testing
+/debug
+
+# production
+/nbproject
+
+#backups
+*.bak
