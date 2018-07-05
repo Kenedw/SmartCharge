@@ -1556,7 +1556,10 @@ ESCREVE_MEDIDA
     
 ;ESCRITA CORRENTE
     MOVFW   mulplr
+    MOVLW   .10                  ; COMPENSAÇÃO DO PIC EM USO COM VALOR DE A/D INCORRETO
+    SUBWF   mulplr,W
     MOVWF   AccI                 ;GUARDA O VALOR DA CORRENTE
+    MOVWF   mulplr                 ;GUARDA O VALOR DA CORRENTE
 ;-----CONFIGURA ESCRITA NA SEGUNDA LINHA------
 
     MOVLW   0XC9
@@ -1909,7 +1912,7 @@ POSIT
 CON_TENSAO
 
     MOVFW   AccT                 ; PEGA O VALOR DO SETPOINT  
-    SUBWF   AUX,F                ; AUX = (AUX - AccI)    
+    SUBWF   AUX,F                ; AUX = (AUX - AccT)    
     BTFSC   STATUS,C             ; VERIFICA SE A MEDIDA É MAIOR QUE O SETpoint
                                  ; SE SIM VAI PARA O POSIT
     GOTO    POSIT
@@ -1917,7 +1920,7 @@ CON_TENSAO
     CALL    CON_PROX             ; AJUSTA O GANHO DO CONTROLADOR
     MOVFW   AUX                  ; MOVE AUX PARA O WORK
     SUBWF   CCPR1L,F             ; REGULA O PWM(PWM-W)
-    BTFSC   STATUS,C             ; PREVINE UNDERFLOW
+    BTFSS   STATUS,C             ; PREVINE UNDERFLOW
     CLRF    CCPR1L
     RETURN    
     
@@ -2115,7 +2118,6 @@ STAGE_ONE
     XORLW   .10
     BTFSC   STATUS,Z
     GOTO    PWM_RESET_SISTEMA                 ;SE SIM, REINICIA O SISTEMA
-
     GOTO    LOOP_STAGES                        ;VOLTA PARA O LOOP DE ESTAGIOS DE CARGA
     
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -2127,22 +2129,22 @@ STAGE_ONE
 STAGE_TWO
     BSF     PORTC,RC5                       ; LED QUE INDICA QUE ESTAMOS NO ESTAGIO 2
     BSF     FLAG_MEDIDA                     ;DIZ QUE ESTAMOS TRABALHANDO COM A CORRENTE
-    MOVFW   AccI                            ;MANDA MEDIDA PARA O CONTROLADOR
+    MOVFW   INOMI                           ;MANDA SETPOINT PARA O CONTROLADOR
     CALL    CON_P                           ;AJUSTA PWM COM BASE NA FLAG_MEDIDA
 
-;TIRA 125% DA TENSÃO DO SETPOINT, VERIFICANDO ASSIM SE JA ESTA EM 
-;TENSÃO DE EQUALIZAÇÃO
+;VERIFICA SE A TENSÃO DA BATERIA ATINGIO 120% DA TENSÃO NOMINAL, 
+;VERIFICANDO ASSIM SE JA ESTA EM TENSÃO DE EQUALIZAÇÃO(AccT > (TNOMI * (6/5))
     MOVFW   TNOMI
     MOVWF   mulplr                          ;O SETPONT COMO NUMERADOR
-    MOVLW   .15
-    MOVWF   mulcnd                          ;MULTIPLICADO POR 15
+    MOVLW   .6
+    MOVWF   mulcnd                          ;MULTIPLICADO POR 6
     CALL    mpy_F
     MOVFW   H_byte
     MOVWF   ACCbHI
     MOVFW   L_byte
     MOVWF   ACCbLO
-    MOVLW   .12                     
-    MOVWF   ACCaLO                         ;COM 12 DE DENOMINADOR
+    MOVLW   .5                     
+    MOVWF   ACCaLO                          ;COM 5 DE DENOMINADOR
     CLRF    ACCaHI
     CALL    D_divF
 
@@ -2152,18 +2154,19 @@ STAGE_TWO
     MOVWF   TECLA
     XORLW   .10
     BTFSC   STATUS,Z
-    GOTO    PWM_RESET_SISTEMA                     ;SE SIM, REINICIA O SISTEMA
+    GOTO    PWM_RESET_SISTEMA               ;SE SIM, REINICIA O SISTEMA
+    INCF    CCPR1L                          ;COMPENSAÇÃO DO CONTROLADOR
 
 ;VERIFICANDO ASSIM SE JA ESTA EM TENSÃO DE EQUALIZAÇÃO
     MOVFW   AccT
     SUBWF   ACCbLO,W                    ;ACCb - AccT    
-    BTFSS   STATUS,C                    ;ACCb > AccT ? 0-AccTMENOR : 1AccTMAIOR
+    BTFSC   STATUS,C                    ;ACCb > AccT ? 1-AccTMENOR : 0-AccTMAIOR
     GOTO    $+3
     
     CALL    DELAY_1SEGUNDO              ;ESPERA 1 SEGUNDO
     GOTO    STAGE_THREE                 
     CALL    DELAY_1SEGUNDO              ;ESPERA 1 SEGUNDO
-    GOTO    STAGE_TWO                   ;VOLTA PARA O LOOP DE ESTAGIOS DE CARGA
+    GOTO    LOOP_STAGES                 ;VOLTA PARA O LOOP DE ESTAGIOS DE CARGA
     
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 ;                       ESTAGIO TRES                			  *
@@ -2177,56 +2180,44 @@ STAGE_TWO
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			    
 STAGE_THREE
     BSF     PORTC,RC6                   ; LED QUE INDICA QUE ESTAMOS NO ESTAGIO 3    
-    BCF     FLAG_MEDIDA                 ; ESCOLHE FLAG DE MEDIDA COMO TENSÃO
-    CALL    FAZ_MEDIDA                  ; REALIZA A MEDIDA DA TENSÃO
-    CALL    ESCREVE_MEDIDA              ; ESCREVE NO DISPLAY A TENSÃO
-    MOVFW   AccT
-    MOVWF   TNOMI                       ;APLICA O VALOR ATUAL COMO NOVO SETPOINT
-        
-LOOP_STAGE_THREE
-    
-;REALIZA MEDIDA E ESCRITA, DA TENSÃO DA BATERIA
-    BCF     FLAG_MEDIDA                 ; ESCOLHE FLAG DE MEDIDA COMO TENSÃO
-    CALL    FAZ_MEDIDA                  ; REALIZA A MEDIDA DA TENSÃO
-    CALL    ESCREVE_MEDIDA              ; ESCREVE NO DISPLAY A TENSÃO
-    MOVFW   AccT                        ;CAPTURA O VALOR DA MEDIDA DE TENSÃO
-    CALL    CON_P                       ;AJUSTA PWM COM BASE NA FLAG_MEDIDA
 
-;REALIZA MEDIDA E ESCRITA, DA CORRENTE DA BATERIA
+LOOP_STAGE_THREE
+;    REALIZA MEDIDA E ESCRITA, DA TENSÃO DA BATERIA
+    BCF     FLAG_MEDIDA                 ; ESCOLHE FLAG DE MEDIDA COMO TENSÃO
+    CALL    FAZ_MEDIDA                  ; REALIZA A MEDIDA DA TENSÃO
+    CALL    ESCREVE_MEDIDA              ; ESCREVE NO DISPLAY A TENSÃO
+
+    MOVFW   TNOMI                       ; MANDA O SETPOINT COMO VALOR DA TENSÃO NOMINAL
+    CALL    CON_P                       ; AJUSTA PWM COM BASE NA FLAG_MEDIDA
+;    REALIZA MEDIDA E ESCRITA, DA CORRENTE DA BATERIA
     BSF     FLAG_MEDIDA                 ; ESCOLHE FLAG DE MEDIDA COMO CORRENTE
     CALL    FAZ_MEDIDA                  ; REALIZA A MEDIDA DA CORRENTE
     CALL    ESCREVE_MEDIDA              ; ESCREVE NO DISPLAY A TENSÃO
-
-    CALL    DELAY_1SEGUNDO              ;AGUARDA 1 SEGUNDO PARA O PROXIMO AJUSTE DE PWM
-
+        
 ;VERIFICA SE O BOTÃO DE CANCELAMENTO ( * ) FOI ACIONADO
     CALL    VARRE_BOTAO
     MOVWF   TECLA
     XORLW   .10
     BTFSC   STATUS,Z
-    GOTO    PWM_RESET_SISTEMA                     ;SE SIM, REINICIA O SISTEMA
+    GOTO    PWM_RESET_SISTEMA           ;SE SIM, REINICIA O SISTEMA
     
-;VERIFICA SE A CORRENTE ESTA MENOR QUE A QUINTA PARTE DA CORRENTE DE 
-;EQUALIZAÇÃO(SETPOINT DA CORRENTE) OU 2% DA CORRENTE NOMINAL.
+;VERIFICA SE A CORRENTE ESTA MENOR QUE A QUARTA PARTE DA CORRENTE DE 
+;EQUALIZAÇÃO(SETPOINT DA CORRENTE) OU 2,5% DA CORRENTE NOMINAL.
     MOVFW   INOMI
     MOVWF   ACCbLO                          ; CARREGA O SETPOINT PARA O NUMERADOR
-    BCF     STATUS,Z
+    BCF     STATUS,C
     RRF     ACCbLO
-    BCF     STATUS,Z
+    BCF     STATUS,C
     RRF     ACCbLO                          ; DIVIDE POR 4 O SETPOINT
 
-    BSF     FLAG_MEDIDA                     ; ESCOLHE FLAG DE MEDIDA COMO CORRENTE
-    CALL    FAZ_MEDIDA                      ; REALIZA A MEDIDA DA CORRENTE
-    SUBWF   ACCbLO,F                        ; Ic - (INOMI/4)
-    BTFSS   STATUS,C                        ; Ic < (INIMI/4)?
-    GOTO    LOOP_STAGE_THREE                ; S - REALIZA O AJUSTE NOVAMENTE
-    MOVFW   TNOMI
-    SUBWF   AccT
-    BTFSS   STATUS,C                        ; VERIFICA SE A TENSÃO DA BATERIA É 100%
-    GOTO    STAGE_FOUR                      ; N - VAI PARA O QUARTO ESTAGIO
-    GOTO    LOOP_STAGE_THREE                ; S - REALIZA O AJUSTE NOVAMENTE
-
+    CALL    DELAY_1SEGUNDO              ;AGUARDA 1 SEGUNDO PARA O PROXIMO AJUSTE DE PWM
     
+    MOVFW   AccI
+    SUBWF   ACCbLO,F                        ; (INOMI/4) - Ic
+    BTFSS   STATUS,C                        ; (INIMI/4) < Ic?
+    GOTO    LOOP_STAGE_THREE                ; S - REALIZA O AJUSTE NOVAMENTE
+    GOTO    STAGE_FOUR                      ; N - VAI PARA O QUARTO ESTAGIO
+
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 ;                       ESTAGIO QUATRO                			  *
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			    
@@ -2234,23 +2225,13 @@ LOOP_STAGE_THREE
 ;PROCESSO DE CARGA OU A CONTROLADORA REINICIAR.                   *
 ;NESTA ROTINA, SERA FEITA A FLUTUAÇÃO DA BATERIA, EM QUE 1% DA    *
 ;CORRENTE DE CARGA VAI SER IMPOSTA, SOMENTE SE A BATERIA          *
-;DESCARREGAR COM O TEMPO, JA QUE EM SE TRATANDO DE CARGA, ELA JA  *
+;DESCARREGAR COM O TEMPO, JA QUE SE TRATANDO DE CARGA, ELA JA     *
 ;FOI FINALIZADA.                                                  *
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 STAGE_FOUR
     CLRF    CCPR1L                      ; DESLIGA O PROCESSO DE CARGA
     BSF     PORTC,RC7                   ; LED QUE INDICA QUE ESTAMOS NO ESTAGIO 4
-    
-    MOVFW   TNOMI
-    SUBWF   AccT,W                      ; (AccT - TNOMI)
-    BTFSC   STATUS,C                    ; (AccT < TNOMI)
-    GOTO    $+4                         ; N - CONTINUA COM A CARGA DESLIGADA
-                                        ; S - LIGA O CONTROLE PARA REFORÇO DE CORRENTE
-    BCF     FLAG_MEDIDA                 ; ESPECIFICA QUE ESTAMOS TRABALHANDO COM TENSÃO
-    MOVFW   AccT                        ; RECUPERA O VALOR DA MEDIDA
-    CALL    CON_P                       ; LIGA O CONTROLADOR PARA NORMALIZAR TENSÃO    
-    CALL    DELAY_1SEGUNDO              ; AGUARDA 1 SEGUNDO PARA O PROXIMO AJUSTE
-
+STAGE_FOUR_FLOAT
 ;REALIZA MEDIDA E ESCRITA, DA TENSÃO DA BATERIA
     BCF     FLAG_MEDIDA                 ; ESCOLHE FLAG DE MEDIDA COMO TENSÃO
     CALL    FAZ_MEDIDA                  ; REALIZA A MEDIDA DA TENSÃO
@@ -2260,7 +2241,15 @@ STAGE_FOUR
     BSF     FLAG_MEDIDA                 ; ESCOLHE FLAG DE MEDIDA COMO CORRENTE
     CALL    FAZ_MEDIDA                  ; REALIZA A MEDIDA DA CORRENTE
     CALL    ESCREVE_MEDIDA              ; ESCREVE NO DISPLAY A TENSÃO
-    CALL    SHIFT_DISPLAY
+
+    MOVFW   TNOMI
+    SUBWF   AccT,W                      ; (AccT - TNOMI)
+    BTFSC   STATUS,C                    ; (AccT < TNOMI)
+    GOTO    STAGE_FOUR                  ; N - CONTINUA COM A CARGA DESLIGADA
+                                        ; S - LIGA O CONTROLE PARA REFORÇO DE CORRENTE
+    BCF     FLAG_MEDIDA                 ; ESPECIFICA QUE ESTAMOS TRABALHANDO COM TENSÃO
+    MOVFW   TNOMI                       ; RECUPERA O VALOR DA MEDIDA
+    CALL    CON_P                       ; LIGA O CONTROLADOR PARA NORMALIZAR TENSÃO    
 
 ;VERIFICA SE O BOTÃO DE CANCELAMENTO ( * ) FOI ACIONADO
     CALL    VARRE_BOTAO
@@ -2269,7 +2258,8 @@ STAGE_FOUR
     BTFSC   STATUS,Z
     GOTO    PWM_RESET_SISTEMA             ;SE SIM, REINICIA O SISTEMA
 
-    GOTO    STAGE_FOUR
+    CALL    DELAY_1SEGUNDO              ; AGUARDA 1 SEGUNDO PARA O PROXIMO AJUSTE
+    GOTO    STAGE_FOUR_FLOAT
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 ;                       	FIM DO PROGRAMA                 	  *
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
