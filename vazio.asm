@@ -1,8 +1,4 @@
 ;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-;*              MODIFICA��ES PARA USO COM 16F877A                ;*                FEITAS POR KENED OLIVEIRA                        *
-;*              MODIFICA��ES PARA USO COM 16F877A                ;*                    JUNHO DE 2018                                *
-;*              MODIFICA��ES PARA USO COM 16F877A                ;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-;*              MODIFICA��ES PARA USO COM 16F877A                
 ;*                FEITAS POR KENED OLIVEIRA                        *
 ;*                    JUNHO DE 2018                                *
 ;* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

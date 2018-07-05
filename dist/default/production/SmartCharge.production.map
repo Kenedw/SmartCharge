@@ -1,0 +1,268 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Tue Jul 03 19:22:05 2018
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000002
+                   .cinit    romdata   0x000001    program   0x000004
+                   .org_1       code   0x000004    program   0x000b64
+.config_2007_BUILD/DEFAULT/PRODUCTION/VAZIO.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000002      
+                            0x000004    0x0005b5      
+                            0x002007    0x002007      
+            1462 out of 8454 program addresses used, program memory utilization is 17%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                      AD1   0x0003e6    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                      AD2   0x0003d4    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+            ANTERIOR_MENU   0x0000aa    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                BACKSPACE   0x0003a1    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                      BT1   0x0002b7    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                      BT2   0x0002bc    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                      BT3   0x0002c1    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                      BT4   0x0002c6    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                      BT5   0x0002cb    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    BT5_1   0x0002dd    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    BT5_2   0x0002fa    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    BT5_3   0x00031c    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    BT5_4   0x000341    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    BT5_5   0x000363    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    BT5_6   0x000385    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    CARGA   0x00052b    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+              CONFIG_INIT   0x0004ea    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                 CONFIRMA   0x000396    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    CON_P   0x0004b8    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                 CON_PROX   0x0004c9    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                CON_PROX2   0x0004e0    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+               CON_TENSAO   0x0004d3    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+           DELAY_1SEGUNDO   0x00001a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+              DELAY_MICRO   0x000012    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+               DELAY_MILE   0x000005    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+               DIVIDE_128   0x0003df    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     DIV_   0x00047a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                   D_divF   0x000470    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     ESC1   0x0000d4    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     ESC2   0x000107    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     ESC3   0x00013a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     ESC4   0x00016d    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     ESC5   0x0001a0    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                  ESCREVE   0x00005e    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+           ESCREVE_MEDIDA   0x0003ed    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+           ESCREVE_TENSAO   0x000423    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+               FAZ_MEDIDA   0x0003cc    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+       INICIALIZA_DISPLAY   0x000023    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                   INICIO   0x000515    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+              LOOP_STAGES   0x00052f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+         LOOP_STAGE_THREE   0x000581    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     MAIN   0x000512    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+              MENU_CHARGE   0x0001d3    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+              MOSTRA_MENU   0x00024d    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+       MOSTRA_MENU_CHARGE   0x0000c0    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+           MOSTRA_SUBMENU   0x0000b4    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    NOCHK   0x000485    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     NOGO   0x00048e    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             PROXIMO_MENU   0x00009f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+        PWM_RESET_SISTEMA   0x00050f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+           SELECIONA_MENU   0x0002a2    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             SHIFT_CURSOR   0x000099    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+            SHIFT_DISPLAY   0x000094    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+               STAGE_FOUR   0x00059f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                STAGE_ONE   0x000547    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+              STAGE_THREE   0x00057c    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                STAGE_TWO   0x00055f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    VARRE   0x000517    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+              VARRE_BOTAO   0x0001dc    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    VOLTA   0x000006    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_000C   0x00000c    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_000E   0x00000e    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0016   0x000016    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0018   0x000018    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_002C   0x00002c    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0036   0x000036    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0040   0x000040    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_004A   0x00004a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0075   0x000075    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_008F   0x00008f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_00A3   0x0000a3    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_00AD   0x0000ad    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01E3   0x0001e3    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01E5   0x0001e5    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01E8   0x0001e8    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01EB   0x0001eb    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01ED   0x0001ed    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01F0   0x0001f0    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01F3   0x0001f3    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01F5   0x0001f5    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01F8   0x0001f8    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01FB   0x0001fb    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01FD   0x0001fd    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0200   0x000200    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0208   0x000208    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_020A   0x00020a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_020D   0x00020d    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0210   0x000210    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0212   0x000212    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0215   0x000215    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0218   0x000218    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_021A   0x00021a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_021D   0x00021d    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0220   0x000220    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0222   0x000222    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0225   0x000225    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_022D   0x00022d    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_022F   0x00022f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0232   0x000232    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0235   0x000235    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0237   0x000237    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_023A   0x00023a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_023D   0x00023d    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_023F   0x00023f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0242   0x000242    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0245   0x000245    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0247   0x000247    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_024A   0x00024a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_03D6   0x0003d6    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0462   0x000462    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0468   0x000468    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_046C   0x00046c    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_046E   0x00046e    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0577   0x000577    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_05A3   0x0005a3    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    mpy_F   0x000493    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                 splitCDU   0x000457    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+               DELAY_MILE   0x000005    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    VOLTA   0x000006    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_000C   0x00000c    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_000E   0x00000e    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+              DELAY_MICRO   0x000012    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0016   0x000016    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0018   0x000018    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+           DELAY_1SEGUNDO   0x00001a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+       INICIALIZA_DISPLAY   0x000023    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_002C   0x00002c    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0036   0x000036    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0040   0x000040    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_004A   0x00004a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                  ESCREVE   0x00005e    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0075   0x000075    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_008F   0x00008f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+            SHIFT_DISPLAY   0x000094    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             SHIFT_CURSOR   0x000099    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             PROXIMO_MENU   0x00009f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_00A3   0x0000a3    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+            ANTERIOR_MENU   0x0000aa    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_00AD   0x0000ad    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+           MOSTRA_SUBMENU   0x0000b4    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+       MOSTRA_MENU_CHARGE   0x0000c0    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     ESC1   0x0000d4    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     ESC2   0x000107    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     ESC3   0x00013a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     ESC4   0x00016d    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     ESC5   0x0001a0    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+              MENU_CHARGE   0x0001d3    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+              VARRE_BOTAO   0x0001dc    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01E3   0x0001e3    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01E5   0x0001e5    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01E8   0x0001e8    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01EB   0x0001eb    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01ED   0x0001ed    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01F0   0x0001f0    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01F3   0x0001f3    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01F5   0x0001f5    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01F8   0x0001f8    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01FB   0x0001fb    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_01FD   0x0001fd    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0200   0x000200    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0208   0x000208    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_020A   0x00020a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_020D   0x00020d    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0210   0x000210    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0212   0x000212    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0215   0x000215    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0218   0x000218    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_021A   0x00021a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_021D   0x00021d    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0220   0x000220    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0222   0x000222    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0225   0x000225    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_022D   0x00022d    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_022F   0x00022f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0232   0x000232    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0235   0x000235    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0237   0x000237    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_023A   0x00023a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_023D   0x00023d    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_023F   0x00023f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0242   0x000242    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0245   0x000245    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0247   0x000247    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_024A   0x00024a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+              MOSTRA_MENU   0x00024d    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+           SELECIONA_MENU   0x0002a2    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                      BT1   0x0002b7    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                      BT2   0x0002bc    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                      BT3   0x0002c1    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                      BT4   0x0002c6    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                      BT5   0x0002cb    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    BT5_1   0x0002dd    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    BT5_2   0x0002fa    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    BT5_3   0x00031c    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    BT5_4   0x000341    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    BT5_5   0x000363    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    BT5_6   0x000385    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                 CONFIRMA   0x000396    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                BACKSPACE   0x0003a1    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+               FAZ_MEDIDA   0x0003cc    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                      AD2   0x0003d4    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_03D6   0x0003d6    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+               DIVIDE_128   0x0003df    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                      AD1   0x0003e6    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+           ESCREVE_MEDIDA   0x0003ed    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+           ESCREVE_TENSAO   0x000423    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                 splitCDU   0x000457    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0462   0x000462    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0468   0x000468    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_046C   0x00046c    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_046E   0x00046e    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                   D_divF   0x000470    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     DIV_   0x00047a    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    NOCHK   0x000485    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     NOGO   0x00048e    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    mpy_F   0x000493    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    CON_P   0x0004b8    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                 CON_PROX   0x0004c9    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+               CON_TENSAO   0x0004d3    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                CON_PROX2   0x0004e0    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+              CONFIG_INIT   0x0004ea    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+        PWM_RESET_SISTEMA   0x00050f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                     MAIN   0x000512    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                   INICIO   0x000515    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    VARRE   0x000517    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                    CARGA   0x00052b    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+              LOOP_STAGES   0x00052f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                STAGE_ONE   0x000547    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+                STAGE_TWO   0x00055f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_0577   0x000577    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+              STAGE_THREE   0x00057c    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+         LOOP_STAGE_THREE   0x000581    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+               STAGE_FOUR   0x00059f    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+             _.org_1_05A3   0x0005a3    program     static A:\SmartCharge with pic\SmartCharge\vazio.asm
+
+
