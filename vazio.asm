@@ -1872,17 +1872,17 @@ CON_P
     BTFSS   FLAG_MEDIDA         ; VERIFICA O TIPO DA MEDIDA
     GOTO    CON_TENSAO
     
-    MOVFW   INOMI
-    SUBWF   AUX,F                ; PEGA O VALOR DO SETPOINT  
-     
-    BTFSC   STATUS,C             ; VERIFICA SE O VALOR A SER AJUSTADO
-                                 ; É NEGATIVO OU POSITIVO
-;                                ; SE POSITIVO VAI PARA O CONT_PROX
+    MOVFW   AccI                 ; PEGA O VALOR DO SETPOINT  
+    SUBWF   AUX,F                ; AUX = (AUX - AccI)    
+    BTFSC   STATUS,C             ; VERIFICA SE A MEDIDA É MAIOR QUE O SETpoint
+                                 ; SE SIM VAI PARA O POSIT
     GOTO    POSIT
-    COMF    AUX,W                ; REALIZA A INVERSÃO DO VALOR
+    COMF    AUX,F                ; REALIZA A INVERSÃO DO VALOR
     CALL    CON_PROX             ; AJUSTA O GANHO DO CONTROLADOR
     MOVFW   AUX                  ; MOVE AUX PARA O WORK
-    SUBWF   CCPR1L,F             ; REGULA O PWM(PWM-W)   
+    SUBWF   CCPR1L,F             ; REGULA O PWM(PWM-W)
+    BTFSS   STATUS,C             ; PREVINE UNDERFLOW
+    CLRF    CCPR1L
     RETURN
     
 CON_PROX  
@@ -1894,29 +1894,32 @@ CON_PROX
 
     BCF     STATUS,C
     RRF     AUX
-
     RETURN
     
-CON_TENSAO
-
-    MOVFW   TNOMI
-    SUBWF   AUX,F                ; PEGA O VALOR DO SETPOINT   
-    
-    BTFSC   STATUS,C             ; VERIFICA SE O VALOR A SER AJUSTADO
-                                 ; É NEGATIVO OU POSITIVO
-;                                ; SE POSITIVO VAI PARA O CONT_PROX
-    GOTO    POSIT
-    COMF    AUX,W                ; REALIZA A INVERSÃO DO VALOR
-    CALL    CON_PROX             ; AJUSTA O GANHO DO CONTROLADOR
-    MOVFW   AUX                  ; MOVE AUX PARA O WORK
-    SUBWF   CCPR1L,F             ; REGULA O PWM(PWM-W)   
-    RETURN
 POSIT
     CALL    CON_PROX             ; AJUSTA O GANHO DO CONTROLADOR
     MOVFW   AUX
-    ADDWF   CCPR1L,F              ; REGULA O PWM    
+    ADDWF   CCPR1L,F             ; REGULA O PWM    
+    BTFSS   STATUS,C             ; PREVINE OVERFLOW
+    GOTO    $+3
+    MOVLW   0XFF
+    MOVWF   CCPR1L
     RETURN
-        
+
+CON_TENSAO
+
+    MOVFW   AccT                 ; PEGA O VALOR DO SETPOINT  
+    SUBWF   AUX,F                ; AUX = (AUX - AccI)    
+    BTFSC   STATUS,C             ; VERIFICA SE A MEDIDA É MAIOR QUE O SETpoint
+                                 ; SE SIM VAI PARA O POSIT
+    GOTO    POSIT
+    COMF    AUX,F                ; REALIZA A INVERSÃO DO VALOR
+    CALL    CON_PROX             ; AJUSTA O GANHO DO CONTROLADOR
+    MOVFW   AUX                  ; MOVE AUX PARA O WORK
+    SUBWF   CCPR1L,F             ; REGULA O PWM(PWM-W)
+    BTFSC   STATUS,C             ; PREVINE UNDERFLOW
+    CLRF    CCPR1L
+    RETURN    
     
     
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -2053,11 +2056,6 @@ LOOP_STAGES
     CALL    FAZ_MEDIDA                       ; REALIZA A MEDIDA DA CORRENTE
     CALL    ESCREVE_MEDIDA                   ; ESCREVE NO DISPLAY A TENSÃO
 
-    BCF     PORTC,RC1                       ; LED QUE INDICA QUE NÃO ESTAMOS EM CARGA
-    BCF     PORTC,RC5                       ; LED QUE INDICA QUE NÃO ESTAMOS EM CARGA
-    BCF     PORTC,RC6                       ; LED QUE INDICA QUE NÃO ESTAMOS EM CARGA
-    BCF     PORTC,RC7                       ; LED QUE INDICA QUE NÃO ESTAMOS EM CARGA
-
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 ;           VERIFICAÇÃO DO ESTAGIO INICIAL DE CARGA   			  *
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			    
@@ -2105,16 +2103,9 @@ STAGE_ONE
     CALL    D_divF                          ;DIVIDE O SET POINT POR 10
 
     BSF     FLAG_MEDIDA                     ;DIZ QUE ESTAMOS TRABALHANDO COM A CORRENTE
-    MOVFW   INOMI
-    MOVWF   AUX_CHARG
-    MOVFW   ACCbLO                         ;CAPTURA O RESULTADO DA DIVISÃO
-    MOVWF   INOMI                           ;GRAVA NOSSO NOVO SETPOINT
-
-    MOVFW   AccI                            ;MANDA MEDIDA PARA O CONTROLADOR
+    MOVFW   ACCbLO                          ;ENVIA O NOVO SETPOINT PARA O CONTROLADOR
     CALL    CON_P                           ;AJUSTA PWM COM BASE NA FLAG_MEDIDA
     INCF    CCPR1L                          ;COMPENSAÇÃO 
-    MOVFW   AUX_CHARG
-    MOVWF   INOMI                           ;DEVOLVE O VALOR DO SETPOINT
     
     CALL    DELAY_1SEGUNDO                  ;ESPERA 1 SEGUNDO
 
@@ -2134,7 +2125,7 @@ STAGE_ONE
 ;AO QUAL É INDICADA COMO NIVEL DE CORRENTE ADEQUADO PARA CARGA.   *
 ; * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			    
 STAGE_TWO
-    BSF     PORTC,RC5                      ; LED QUE INDICA QUE ESTAMOS NO ESTAGIO 2
+    BSF     PORTC,RC5                       ; LED QUE INDICA QUE ESTAMOS NO ESTAGIO 2
     BSF     FLAG_MEDIDA                     ;DIZ QUE ESTAMOS TRABALHANDO COM A CORRENTE
     MOVFW   AccI                            ;MANDA MEDIDA PARA O CONTROLADOR
     CALL    CON_P                           ;AJUSTA PWM COM BASE NA FLAG_MEDIDA
